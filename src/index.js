@@ -5,10 +5,18 @@ import App from './client/App';
 
 const app = express();
 
-app.get('/', (req, res) => {
+app.use(express.static('public'));
+app.get('*', (req, res) => {
     const content = renderToString(<App/>);
+    const html = `<html>
+        <head></head>
+        <body>
+            <div id="root">${content}</div>
+        </body>
+        <script src="bundle.js"></script>
+    </html>`;
 
-    res.send(content);
+    res.send(html);
 });
 
 
