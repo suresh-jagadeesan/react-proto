@@ -1,13 +1,15 @@
 import express from 'express';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import App from './client/App';
 
 const app = express();
 
 app.get('/', (req, res) => {
-    res.send('Hello World');
+    const content = renderToString(<App/>);
+
+    res.send(content);
 });
 
-app.get('/hello/:name', (req, res) => {
-    res.send(`Hello ${req.params.name}`);
-});
 
 app.listen(3000, () => console.log('server listening on port 3000'));

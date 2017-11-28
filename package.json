@@ -27,7 +27,8 @@
   "homepage": "https://github.com/suresh-jagadeesan/react-proto#readme",
   "dependencies": {
     "express": "^4.16.2",
-    "react": "^16.1.1"
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
