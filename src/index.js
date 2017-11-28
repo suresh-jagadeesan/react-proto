@@ -1,22 +1,56 @@
+import 'babel-polyfill';
 import express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import App from './client/App';
+import StaticRouter from 'react-router-dom/StaticRouter';
+import { renderRoutes, matchRoutes } from 'react-router-config';
+import routes from './client/routes';
 
 const app = express();
 
 app.use(express.static('public'));
 app.get('*', (req, res) => {
-    const content = renderToString(<App/>);
-    const html = `<html>
-        <head></head>
-        <body>
-            <div id="root">${content}</div>
-        </body>
-        <script src="bundle.js"></script>
-    </html>`;
+    let context = {};
 
-    res.send(html);
+    const promises = matchRoutes(routes, req.path)
+    .map(({ route }) => {
+      return route.loadData ? route.loadData(store) : null;
+    })
+    .map(promise => {
+      if (promise) {
+        return new Promise((resolve, reject) => {
+          promise.then(resolve).catch(resolve);
+        });
+      }
+    });
+
+
+    Promise.all(promises).then(() => {
+
+        const content = renderToString(
+            <StaticRouter location={req.path} context={context}>
+                {renderRoutes(routes)}
+            </StaticRouter>
+        );
+                
+        const html = `<html>
+            <head></head>
+            <body>
+                <div id="root">${content}</div>
+            </body>
+            <script src="bundle.js"></script>
+        </html>`;
+                
+            
+        if (context.url) {
+            return res.redirect(301, context.url);
+        }
+        if (context.notFound) {
+            res.status(404);
+        }
+            
+        res.send(html);
+    });
 });
 
 

@@ -1,9 +1,13 @@
 import React from 'react';
 import { hydrate } from 'react-dom';
-import App from './App';
+import { BrowserRouter } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
+import routes from './routes';
 
 hydrate(
-    <App/>,
+    <BrowserRouter>
+        {renderRoutes(routes)}
+    </BrowserRouter>,
     document.querySelector('#root')
 );
 
