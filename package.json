@@ -4,11 +4,11 @@
   "description": "Prototype for the React Application for Dollar Shave Club",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npm-run-all --parallel dev:*",
-    "dev:server": "nodemon --watch build --exec \"node build/bundle.js\"",
-    "dev:build-server": "webpack --config webpack.server.js --watch",
-    "dev:build-client": "webpack --config webpack.client.js --watch"
+    "test": "./node_modules/.bin/mocha-webpack test/**/*.js",
+    "dev": "./node_modules/.bin/npm-run-all --parallel dev:*",
+    "dev:server": "./node_modules/.bin/nodemon --watch build --exec \"node build/bundle.js\"",
+    "dev:build-server": "./node_modules/.bin/webpack --config webpack.server.js --watch",
+    "dev:build-client": "./node_modules/.bin/webpack --config webpack.client.js --watch"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,11 @@
   "bugs": {
     "url": "https://github.com/suresh-jagadeesan/react-proto/issues"
   },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
   "homepage": "https://github.com/suresh-jagadeesan/react-proto#readme",
   "dependencies": {
     "express": "^4.16.2",
@@ -37,11 +42,19 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-es2017": "^6.24.1",
+    "babel-preset-latest": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "chai": "^4.1.2",
+    "jsdom": "^11.5.1",
+    "mocha": "^4.0.1",
+    "mocha-webpack": "^1.0.1",
+    "react-addons-test-utils": "^15.6.2",
     "webpack": "^3.8.1",
     "webpack-merge": "^4.1.1",
     "webpack-node-externals": "^1.6.0"
