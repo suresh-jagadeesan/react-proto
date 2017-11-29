@@ -1,3 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-export default () => <div>This is a Header</div>;
+export default () => {
+    return (
+        <div>
+            <Link to='/'>Home</Link>
+            <Link to='/about'>About</Link>
+            <Link to='/contact'>Contact</Link>
+        </div>
+    );
+};

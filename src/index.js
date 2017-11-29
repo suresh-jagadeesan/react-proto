@@ -3,7 +3,8 @@ import express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import StaticRouter from 'react-router-dom/StaticRouter';
-import { renderRoutes, matchRoutes } from 'react-router-config';
+import { matchRoutes } from 'react-router-config';
+import AppRouter from './client/container/AppRouter';
 import routes from './client/routes';
 
 const app = express();
@@ -19,7 +20,7 @@ app.get('*', (req, res) => {
     .map(promise => {
       if (promise) {
         return new Promise((resolve, reject) => {
-          promise.then(resolve).catch(resolve);
+          promise().then(resolve).catch(resolve);
         });
       }
     });
@@ -29,7 +30,7 @@ app.get('*', (req, res) => {
 
         const content = renderToString(
             <StaticRouter location={req.path} context={context}>
-                {renderRoutes(routes)}
+                <AppRouter/>
             </StaticRouter>
         );
                 

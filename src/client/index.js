@@ -1,14 +1,11 @@
 import React from 'react';
 import { hydrate } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { renderRoutes } from 'react-router-config';
-import routes from './routes';
+import AppRouter from './container/AppRouter';
 
 hydrate(
     <BrowserRouter>
-        {renderRoutes(routes)}
+        <AppRouter/>
     </BrowserRouter>,
     document.querySelector('#root')
 );
-
-console.log("client is working");
