@@ -1,11 +1,11 @@
 import React from 'react';
 import { hydrate } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import AppRouter from './container/AppRouter';
+import App from './App';
 
 hydrate(
     <BrowserRouter>
-        <AppRouter/>
+        <App/>
     </BrowserRouter>,
     document.querySelector('#root')
 );
