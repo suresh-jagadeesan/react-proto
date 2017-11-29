@@ -1,10 +1,10 @@
 {
   "name": "react-proto",
   "version": "1.0.0",
-  "description": "Prototype for the React Application for Dollar Shave Club",
+  "description": "A Prototype for the Isomorphic React Application",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha-webpack --compiler js:babel-core/register test/**/*.js",
+    "test": "./node_modules/.bin/mocha --require babel-core/register --require 'test/setup.js' 'test/**/*.spec.js'",
     "dev": "./node_modules/.bin/npm-run-all --parallel dev:*",
     "dev:server": "./node_modules/.bin/nodemon --watch build --exec \"node build/bundle.js\"",
     "dev:build-server": "./node_modules/.bin/webpack --config webpack.server.js --watch",
@@ -50,6 +50,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
+    "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
