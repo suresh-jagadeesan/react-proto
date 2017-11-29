@@ -11,4 +11,16 @@ describe('Header', () => {
 
         expect(wrapper.contains(<Link to='/'>Home</Link>)).to.equal(true);
     });
+
+    it('contains a Link to the About Page', () => {
+        const wrapper = shallow(<Header/>);
+
+        expect(wrapper.contains(<Link to='/about'>About</Link>)).to.equal(true);
+    });
+
+    it('contains a Link to the Contact Page', () => {
+        const wrapper = shallow(<Header/>);
+
+        expect(wrapper.contains(<Link to='/contact'>Contact</Link>)).to.equal(true);
+    });
 });
