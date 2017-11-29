@@ -4,7 +4,7 @@
   "description": "Prototype for the React Application for Dollar Shave Club",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha-webpack test/**/*.js",
+    "test": "./node_modules/.bin/mocha-webpack --compiler js:babel-core/register test/**/*.js",
     "dev": "./node_modules/.bin/npm-run-all --parallel dev:*",
     "dev:server": "./node_modules/.bin/nodemon --watch build --exec \"node build/bundle.js\"",
     "dev:build-server": "./node_modules/.bin/webpack --config webpack.server.js --watch",
@@ -51,10 +51,14 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
     "chai": "^4.1.2",
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.0",
     "jsdom": "^11.5.1",
+    "jsdom-global": "^3.0.2",
     "mocha": "^4.0.1",
     "mocha-webpack": "^1.0.1",
     "react-addons-test-utils": "^15.6.2",
+    "sinon": "^4.1.2",
     "webpack": "^3.8.1",
     "webpack-merge": "^4.1.1",
     "webpack-node-externals": "^1.6.0"

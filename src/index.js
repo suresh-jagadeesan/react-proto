@@ -4,7 +4,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import StaticRouter from 'react-router-dom/StaticRouter';
 import { matchRoutes } from 'react-router-config';
-import AppRouter from './client/container/AppRouter';
+import App from './client/App';
 import routes from './client/routes';
 
 const app = express();
@@ -30,7 +30,7 @@ app.get('*', (req, res) => {
 
         const content = renderToString(
             <StaticRouter location={req.path} context={context}>
-                <AppRouter/>
+                <App/>
             </StaticRouter>
         );
                 
