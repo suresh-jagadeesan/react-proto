@@ -1,4 +1,3 @@
-// const expect = require('chai').expect;
 import { expect } from 'chai';
 
 describe('Mocha works', () => {
@@ -7,8 +6,8 @@ describe('Mocha works', () => {
     });
 });
 
-// describe('Home', () => {
-//     it('renders', () => {
+describe('Home', () => {
+    it('renders', () => {
 
-//     });
-// });
+    });
+});
