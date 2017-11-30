@@ -1,18 +1,24 @@
 import { expect } from 'chai';
+import { createStore } from 'redux';
 import { INCREMENT, DECREMENT } from '../../src/client/actions/action-types';
-import reducer from '../../src/client/reducers';
+import reducers from '../../src/client/reducers';
 
-describe('Reducers', () => {
+describe('rootReducer', () => {
+    let store;
+
+    beforeEach(() => {
+        store = createStore(reducers, { count: 0 });
+    });
 
     it('should increment the count when it receives an action type of INCREMENT', () => {
-        const result = reducer({ count: 0 }, { type: INCREMENT });
+        store.dispatch({ type: INCREMENT });
 
-        expect(result.count).to.equal(1);
+        expect(store.getState().counter.count).to.equal(1);
     });
 
     it('should decrement the count when it receives an action type of DECREMENT', () => {
-        const result = reducer({ count: 0 }, { type: DECREMENT });
+        store.dispatch({ type: DECREMENT });
         
-        expect(result.count).to.equal(-1);
+        expect(store.getState().counter.count).to.equal(-1);
     });
 });
