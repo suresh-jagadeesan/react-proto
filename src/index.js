@@ -1,11 +1,13 @@
 import 'babel-polyfill';
 import express from 'express';
 import React from 'react';
+import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import StaticRouter from 'react-router-dom/StaticRouter';
 import { matchRoutes } from 'react-router-config';
 import App from './client/App';
 import routes from './client/routes';
+import store from './client/store';
 
 const app = express();
 
@@ -30,7 +32,9 @@ app.get('*', (req, res) => {
 
         const content = renderToString(
             <StaticRouter location={req.path} context={context}>
-                <App/>
+                <Provider store={store}>
+                    <App/>
+                </Provider>
             </StaticRouter>
         );
                 

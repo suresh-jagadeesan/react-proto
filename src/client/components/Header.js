@@ -9,6 +9,10 @@ export default () => {
             <Link to='/about'>About</Link>
             {' '}
             <Link to='/contact'>Contact</Link>
+            {' '}
+            <Link to='/contact'>Contact</Link>
+            {' '}
+            <Link to='/counter'>Counter</Link>
         </div>
     );
 };
