@@ -1,14 +1,16 @@
 import React from 'react';
-import { expect } from 'chai';
+// import { expect } from 'jest';
 import { shallow } from 'enzyme';
-import { Link } from 'react-router-dom';
+import renderer from 'react-test-renderer';
 
 import Footer from '../../src/client/components/Footer';
 
 describe('Footer', () => {
-    it('contains a some text', () => {
-        const wrapper = shallow(<Footer/>);
+    it('renders correctly', () => {
+        const tree = renderer
+            .create(<Footer/>)
+            .toJSON();
 
-        expect(wrapper.contains(<div>This is a Footer</div>)).to.equal(true);
+      expect(tree).toMatchSnapshot();
     });
 });
