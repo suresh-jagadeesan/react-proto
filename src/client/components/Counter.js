@@ -5,7 +5,6 @@ import { decrement, increment, reset } from '../actions';
 const Counter = (props) => {
     return (
         <div style={{ paddingBottom: '50px' }}>
-            <h1>Counter Page</h1>
             {props.count}
             <button onClick={ () => props.increment() }>+</button>
             <button onClick={ () => props.decrement() }>-</button>
