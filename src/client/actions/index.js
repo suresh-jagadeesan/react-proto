@@ -30,9 +30,13 @@ export function fetchUsersSuccess(users) {
     };
 };
 
-export function fetchUsersFailure(error = { message: 'unknown error' }) {
+export function fetchUsersFailure() {
     return { 
         type: FETCH_USERS_FAILURE,
-        payload: { error } 
+        payload: { 
+            error: { 
+                message: 'Cannot get the list of users' 
+            }
+        } 
     };
 };

@@ -66,7 +66,7 @@ describe('actions', () => {
         it('should return an error message', () => {
             const error = { message: 'Cannot get the list of users' };
 
-            expect(fetchUsersFailure(error).payload).toEqual({ error });
+            expect(fetchUsersFailure().payload).toEqual({ error });
         });
     });
 });
