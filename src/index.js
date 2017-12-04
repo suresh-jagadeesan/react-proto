@@ -9,6 +9,7 @@ import { Helmet } from 'react-helmet';
 import App from './client/App';
 import routes from './client/routes';
 import store from './client/store';
+import serialize from 'serialize-javascript';
 
 const app = express();
 
@@ -23,7 +24,7 @@ app.get('*', (req, res) => {
     .map(promise => {
       if (promise) {
         return new Promise((resolve, reject) => {
-          promise().then(resolve).catch(resolve);
+          promise.then(resolve).catch(resolve);
         });
       }
     });
@@ -48,6 +49,9 @@ app.get('*', (req, res) => {
                 </head>
                 <body>
                     <div id="root">${content}</div>
+                    <script>
+                        window.INITIAL_STATE = ${serialize(store.getState())}
+                    </script>  
                     <script src="bundle.js"></script>
                 </body>
             </html>

@@ -1,9 +1,8 @@
 import React from 'react';
 
-export default function UsersListItem(props) {
-    const { user } = props;
+export default function UsersListItem({ user }) {
 
     return (
-        <li key={user.id}>{user.name}</li>
+        <li>{user.name}</li>
     );
 } 
