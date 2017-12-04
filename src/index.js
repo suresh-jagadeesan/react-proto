@@ -1,11 +1,15 @@
 import 'babel-polyfill';
 import express from 'express';
 import React from 'react';
+import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import StaticRouter from 'react-router-dom/StaticRouter';
 import { matchRoutes } from 'react-router-config';
+import { Helmet } from 'react-helmet';
 import App from './client/App';
 import routes from './client/routes';
+import store from './client/store';
+import serialize from 'serialize-javascript';
 
 const app = express();
 
@@ -20,27 +24,38 @@ app.get('*', (req, res) => {
     .map(promise => {
       if (promise) {
         return new Promise((resolve, reject) => {
-          promise().then(resolve).catch(resolve);
+          promise.then(resolve).catch(resolve);
         });
       }
     });
 
 
     Promise.all(promises).then(() => {
+        const helmet = Helmet.renderStatic();
 
         const content = renderToString(
             <StaticRouter location={req.path} context={context}>
-                <App/>
+                <Provider store={store}>
+                    <App/>
+                </Provider>
             </StaticRouter>
         );
                 
-        const html = `<html>
-            <head></head>
-            <body>
-                <div id="root">${content}</div>
-                <script src="bundle.js"></script>
-            </body>
-        </html>`;
+        const html = `
+            <!doctype html>
+            <html>
+                <head>
+                    ${helmet.title.toString()}
+                </head>
+                <body>
+                    <div id="root">${content}</div>
+                    <script>
+                        window.INITIAL_STATE = ${serialize(store.getState())}
+                    </script>  
+                    <script src="bundle.js"></script>
+                </body>
+            </html>
+        `;
                 
             
         if (context.url) {

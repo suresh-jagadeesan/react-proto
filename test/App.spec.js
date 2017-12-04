@@ -1,5 +1,4 @@
 import React from 'react';
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import { Link } from 'react-router-dom';
 import Header from '../src/client/components/Header';
@@ -14,10 +13,10 @@ describe('<App/>', () => {
     });
 
     it('should contain a <Header/>', () => {        
-        expect(wrapper.contains(<Header/>)).to.equal(true);
+        expect(wrapper.contains(<Header/>)).toBe(true);
     });
 
     it('should contain a <Footer/>', () => {        
-        expect(wrapper.contains(<Footer/>)).to.equal(true);
+        expect(wrapper.contains(<Footer/>)).toBe(true);
     });
 });

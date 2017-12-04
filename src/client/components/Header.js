@@ -5,8 +5,16 @@ export default () => {
     return (
         <div>
             <Link to='/'>Home</Link>
+            {' '}
             <Link to='/about'>About</Link>
+            {' '}
             <Link to='/contact'>Contact</Link>
+            {' '}
+            <Link to='/contact'>Contact</Link>
+            {' '}
+            <Link to='/counter'>Counter</Link>
+            {' '}
+            <Link to='/users'>Users</Link>
         </div>
     );
 };

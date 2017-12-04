@@ -1,14 +1,13 @@
 import React from 'react';
-// import { expect } from 'jest';
 import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 
-import Footer from '../../src/client/components/Footer';
+import Contact from '../../src/client/pages/Contact';
 
-describe('Footer', () => {
+describe('Contact', () => {
     it('renders correctly', () => {
         const tree = renderer
-            .create(<Footer/>)
+            .create(<Contact/>)
             .toJSON();
 
       expect(tree).toMatchSnapshot();
