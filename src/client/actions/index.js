@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { 
     INCREMENT, 
     DECREMENT, 
@@ -39,4 +40,16 @@ export function fetchUsersFailure() {
             }
         } 
     };
+};
+
+export const fetchUsersAsync = (url) => async dispatch => {
+    dispatch(fetchUsers());
+
+    try {
+       const { data } = await axios.get(url);
+
+        dispatch(fetchUsersSuccess(data));
+    } catch(e) {
+        dispatch(fetchUsersFailure());
+    }
 };
