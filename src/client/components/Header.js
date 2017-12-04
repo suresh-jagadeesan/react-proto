@@ -13,6 +13,8 @@ export default () => {
             <Link to='/contact'>Contact</Link>
             {' '}
             <Link to='/counter'>Counter</Link>
+            {' '}
+            <Link to='/users'>Users</Link>
         </div>
     );
 };

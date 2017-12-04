@@ -1,16 +1,21 @@
+import 'babel-polyfill';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { hydrate } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { createStore } from 'redux';
-import initialState from './store/initialState';
+import { createStore, compose } from 'redux';
+import thunk from 'redux-thunk';
+import { applyMiddleware } from 'redux';
 import reducers from './reducers';
 import App from './App';
 
 const store = createStore(
     reducers,
-    initialState,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    window.INITIAL_STATE,
+    compose(
+        applyMiddleware(thunk),
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
 );
 
 hydrate(
