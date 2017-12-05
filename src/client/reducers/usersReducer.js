@@ -1,4 +1,11 @@
-import { FETCH_USERS, FETCH_USERS_SUCCESS, FETCH_USERS_FAILURE } from '../actions/action-types';
+import { 
+    FETCH_USERS, 
+    FETCH_USERS_SUCCESS, 
+    FETCH_USERS_FAILURE,
+    FETCH_SINGLE_USER, 
+    FETCH_SINGLE_USER_SUCCESS, 
+    FETCH_SINGLE_USER_FAILURE 
+} from '../actions/action-types';
 
 export default function (state = { users: [], loading: false, errorMessage: '' }, action) {
     switch (action.type) {
@@ -14,6 +21,23 @@ export default function (state = { users: [], loading: false, errorMessage: '' }
                 loading: false 
             };
         case FETCH_USERS_FAILURE:
+            return { 
+                ...state,
+                loading: false,
+                errorMessage: action.payload.error.message 
+            };
+            case FETCH_SINGLE_USER:
+            return { 
+                ...state, 
+                loading: true 
+            };
+        case FETCH_SINGLE_USER_SUCCESS:
+            return { 
+                ...state,
+                user: action.payload.user, 
+                loading: false 
+            };
+        case FETCH_SINGLE_USER_FAILURE:
             return { 
                 ...state,
                 loading: false,
