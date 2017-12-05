@@ -5,7 +5,10 @@ import {
     RESET, 
     FETCH_USERS,
     FETCH_USERS_SUCCESS,
-    FETCH_USERS_FAILURE
+    FETCH_USERS_FAILURE,
+    FETCH_SINGLE_USER,
+    FETCH_SINGLE_USER_SUCCESS,
+    FETCH_SINGLE_USER_FAILURE
 } from './action-types';
 
 export function increment () {
@@ -51,5 +54,39 @@ export const fetchUsersAsync = (url) => async (dispatch, getState, api) => {
         dispatch(fetchUsersSuccess(data));
     } catch(e) {
         dispatch(fetchUsersFailure());
+    }
+};
+
+export function fetchSingleUser() {
+    return { type: FETCH_SINGLE_USER };
+}
+
+export function fetchSingleUserSuccess(user) {
+    return { 
+        type: FETCH_SINGLE_USER_SUCCESS,
+        payload: { user } 
+    };
+};
+
+export function fetchSingleUserFailure() {
+    return { 
+        type: FETCH_SINGLE_USER_FAILURE,
+        payload: { 
+            error: { 
+                message: 'Cannot cannot get user profile' 
+            }
+        } 
+    };
+};
+
+export const fetchSingleUserAsync = (url) => async (dispatch, getState, api) => {
+    dispatch(fetchSingleUser());
+
+    try {
+       const { data } = await api.get(url);
+
+        dispatch(fetchSingleUserSuccess(data));
+    } catch(e) {
+        dispatch(fetchSingleUserFailure());
     }
 };

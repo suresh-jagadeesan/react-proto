@@ -7,7 +7,10 @@ import {
     RESET,
     FETCH_USERS,
     FETCH_USERS_SUCCESS,
-    FETCH_USERS_FAILURE 
+    FETCH_USERS_FAILURE,
+    FETCH_SINGLE_USER,
+    FETCH_SINGLE_USER_SUCCESS,
+    FETCH_SINGLE_USER_FAILURE  
 } from '../../src/client/actions/action-types';
 import { 
     increment, 
@@ -16,7 +19,11 @@ import {
     fetchUsers,
     fetchUsersAsync,
     fetchUsersSuccess,
-    fetchUsersFailure
+    fetchUsersFailure,
+    fetchSingleUser,
+    fetchSingleUserAsync,
+    fetchSingleUserSuccess,
+    fetchSingleUserFailure
  } from '../../src/client/actions';
 
 const axiosInstance = axios.create({
@@ -51,7 +58,7 @@ describe('actions', () => {
     });
 
     describe('fetchUsersSuccess', () => {
-        it('returns an action type of FETCH_USERS', () => {
+        it('returns an action type of FETCH_USERS_SUCCESS', () => {
             expect(fetchUsersSuccess().type).toBe(FETCH_USERS_SUCCESS);
         });
 
@@ -66,7 +73,7 @@ describe('actions', () => {
     });
 
     describe('fetchUsersFailure', () => {
-        it('returns an action type of FETCH_USERS', () => {
+        it('returns an action type of FETCH_USERS_FAILURE', () => {
             expect(fetchUsersFailure().type).toBe(FETCH_USERS_FAILURE);
         });
 
@@ -110,6 +117,71 @@ describe('actions', () => {
             
             expect(mockFn).toHaveBeenLastCalledWith(
                 fetchUsersFailure()
+            );
+        });
+    });
+
+    describe('fetchSingleUser', () => {
+        it('returns an action type of FETCH_SINGLE_USER', () => {
+            expect(fetchSingleUser().type).toBe(FETCH_SINGLE_USER);
+        });
+    });
+
+    describe('fetchSingleUserSuccess', () => {
+        it('returns an action type of FETCH_SINGLE_USER_SUCCESS', () => {
+            expect(fetchSingleUserSuccess().type).toBe(FETCH_SINGLE_USER_SUCCESS);
+        });
+
+        it('accepts and returns an object of a user', () => {
+            const user = { id: 1, name: 'John' };
+
+            expect(fetchSingleUserSuccess(user).payload).toEqual({ user });
+        });
+    });
+
+    describe('fetchSingleUserFailure', () => {
+        it('returns an action type of FETCH_SINGLE_USER_FAILURE', () => {
+            expect(fetchSingleUserFailure().type).toBe(FETCH_SINGLE_USER_FAILURE);
+        });
+
+        it('should return an error message', () => {
+            const error = { message: 'Cannot cannot get user profile' };
+
+            expect(fetchSingleUserFailure().payload).toEqual({ error });
+        });
+    });
+
+    describe('fetchSingleUserAsync', () => {
+        it('dispatches a FETCH_SINGLE_USER action type', async () => {
+            const mockFn = jest.fn();
+            const url = '/users/1';
+            const dispatch = await fetchSingleUserAsync(url)(mockFn, {}, axiosInstance);
+
+            expect(mockFn).toHaveBeenCalledWith(
+                fetchSingleUser()
+            );
+        });
+
+        it('dispatches an action type of FETCH_SINGLE_USER_SUCCESS and a payload of users on success', async () => {
+            const mockFn = jest.fn();
+            const url = '/users/1';
+            const { data } = await axiosInstance.get(url);
+
+            await fetchSingleUserAsync(url)(mockFn, {}, axiosInstance);
+
+            expect(mockFn).toHaveBeenLastCalledWith(
+                fetchSingleUserSuccess(data)
+            );
+        });
+
+        it('dispatches an action type of FETCH_SINGLE_USER_FAILURE and a payload with an error message on failure', async () => {
+            const mockFn = jest.fn();
+            const url = '/httofjkisjfiewj';
+            
+            await fetchSingleUserAsync(url)(mockFn);
+            
+            expect(mockFn).toHaveBeenLastCalledWith(
+                fetchSingleUserFailure()
             );
         });
     });
