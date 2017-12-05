@@ -19,6 +19,9 @@ import {
     fetchUsersFailure
  } from '../../src/client/actions';
 
+const axiosInstance = axios.create({
+    baseURL: 'http://jsonplaceholder.typicode.com'
+});
 
 
 describe('actions', () => {
@@ -89,9 +92,9 @@ describe('actions', () => {
         it('dispatches an action type of FETCH_USERS_SUCCESS and a payload of users on success', async () => {
             const mockFn = jest.fn();
             const url = 'https://jsonplaceholder.typicode.com/users';
-            const { data } = await axios.get(url);
+            const { data } = await axiosInstance.get('/users');
 
-            await fetchUsersAsync(url)(mockFn);
+            await fetchUsersAsync('/users')(mockFn, {}, axiosInstance);
 
             expect(mockFn).toHaveBeenLastCalledWith(
                 fetchUsersSuccess(data)

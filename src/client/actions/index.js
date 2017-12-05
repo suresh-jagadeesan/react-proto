@@ -42,11 +42,11 @@ export function fetchUsersFailure() {
     };
 };
 
-export const fetchUsersAsync = (url) => async dispatch => {
+export const fetchUsersAsync = (url) => async (dispatch, getState, api) => {
     dispatch(fetchUsers());
 
     try {
-       const { data } = await axios.get(url);
+       const { data } = await api.get(url);
 
         dispatch(fetchUsersSuccess(data));
     } catch(e) {

@@ -5,7 +5,7 @@ import UsersList from '../../components/users/UsersList';
 
 class UsersPage extends Component {
     componentDidMount() {
-        this.props.fetchUsersAsync('http://jsonplaceholder.typicode.com/users');
+        this.props.fetchUsersAsync('/users');
     }
 
     renderPage() {
